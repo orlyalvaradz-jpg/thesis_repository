@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <meta charset="UTF-8">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=BBH+Sans+Bartle&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <title>Flood Monitoring Dashboard</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            overflow-x: hidden;
+            overflow-y: auto;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Background Video */
+        .bg_background {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+            background-color: black;
+        }
+
+        /* Navigation Box */
+        .nav-box {
+            background-color: #34699a;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            padding: 15px 30px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Left group of buttons */
+        .left-buttons {
+            display: flex;
+            gap: 25px;
+            margin-left: 50px;
+        }
+
+        /* Buttons */
+        .db, .alert, .about, .logout {
+            height: 40px;
+            width: 130px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+        }
+
+        .about {
+            background-color: #58a0c8;
+            color: white;
+            border: 1px solid white;
+        }
+
+        .alert, .db, .logout {
+            background-color: white;
+            color: #34699a;
+            border: none;
+        }
+
+        .db:hover, .alert:hover, .about:hover, .logout:hover {
+            background-color: #2c5780;
+            color: white;
+        }
+
+        /* Logout button on the right */
+        .logout {
+            margin-right: 50px;
+        }
+
+        /* Box */
+        .box {
+            width: 800px; 
+            height: 350px;            
+            background-color: #34699a; 
+            color: white;
+            border: none;
+            font-family: "Noto Serif", serif; 
+            margin-left: 0px;
+            margin-top: 120px;
+            text-align: left;
+            padding-right: 200px;
+            z-index: 1;
+            position: relative;
+        }
+
+        h2 {
+            margin-top: 40px;
+            margin-bottom: 20px;
+            font-size: 30px;
+            font-weight: bold;
+            font-family: "Noto Serif", serif;
+            text-align: center;
+        }
+
+        p {
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: left;
+            margin-bottom: 30px;
+            padding: 0 20px;
+            font-size: 20px;
+        }
+
+        .A {
+            text-indent: 50px;
+            margin: 0 auto;
+            width: 70%;
+        }
+
+        .par {
+            text-align: left;
+        }
+
+        .vision {
+            font-size: 20px;
+        }
+
+        .picture {
+            position: absolute;
+            right: -270px;  /* Adjust overlap amount */
+            top: 50%;
+            transform: translateY(-50%);
+            width: 480px;
+            height: 300px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            z-index: 2;
+        }
+
+        .insidebox {
+            position: relative;
+            width: fit-content;
+            margin-left: 300px;
+            margin-top: 100px;
+        }
+
+        /* spacing between multiple boxes */
+        .insidebox + .picbox {
+            margin-top: 200px;
+            margin-bottom: 200px;
+        }
+        .picbox, .picbox1, .picbox2{
+            margin-top: 100px;
+            margin-right: 150px;
+            margin-left: 150px;
+            padding-top: 5px;
+            width: 300px;
+            height: 370px;
+            background-color: #58a0c8;
+            border-radius: 15px;
+            
+            margin-bottom: 200px;
+            
+        }
+       
+        .orly{
+            display: block;
+            margin: 20px auto; /* centers the image horizontally */
+            width: 250px;      /* adjust image size */
+            height: 180;      /* keeps aspect ratio */
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        }
+        .name{
+            margin-top: 0;
+            justify-content: center;
+            text-align: center;
+            font-weight: bold;
+            font-style: italic;
+            margin-bottom: 0;
+            color: white;
+        }
+        .course{
+            margin-top: 0;
+            justify-content: center;
+            text-align: center;
+            font-weight: bold;
+            font-style: italic;
+            margin-bottom: 0;
+            color: black;
+        }
+        .boxes{      
+            display: flex;   
+            align-items: center;
+            justify-content: center;
+            
+            
+        }
+        .developer{
+            margin-top: 200px;
+            margin-bottom: 0;
+           padding-top: 30px;
+            justify-content: center;
+            text-align: center;
+            display: flex;
+            font-family: BBH Sans Bartle ;
+            font-size: 30px;
+            margin-left: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <video class="bg_background" autoplay muted loop>
+        <source src="thumbnails/Dase.mp4" type="video/mp4">
+    </video>
+
+    <div class="nav-box">
+        <div class="left-buttons">
+            <button class="db">DASHBOARD</button>    
+            <button class="alert">ALERT</button>
+            <button class="about">ABOUT US</button>
+        </div>
+        <button class="logout">LOG OUT</button>
+    </div>
+
+    <h2 class="title">VISION</h2>
+    <div class="A">
+        <p class="vision">
+            To create a safer, smarter, and more resilient future where technology empowers communities 
+            to prevent disasters, protect lives, and sustain the environment.
+        </p>
+    </div>
+
+    <h2>MISSION</h2>
+    <div class="A">
+        <p>
+            Our mission is to develop and implement an IoT-based smart dam monitoring and early warning system
+            that enhances flood preparedness and dam safety. Through real-time data collection, intelligent analysis,
+            and timely alerts, we aim to support informed decision-making, promote sustainable water management, and 
+            contribute to achieving the United Nations Sustainable Development Goals — particularly SDG 11 
+            (Sustainable Cities and Communities) and SDG 13 (Climate Action).
+        </p>
+    </div>
+
+    <!-- FIRST BOX -->
+    <div class="insidebox">
+        <div class="box">
+            <h2>THE PRINSANG MOLINO (MOLINO DAM)</h2>
+            <p class="par">
+                Molino Dam, also known as Prinza Dam, is a historic adobe irrigation structure located along the Zapote River 
+                between Barangay San Nicolas I in Bacoor, Cavite, and Talon Dos in Las Piñas City. Built during the Spanish 
+                colonial period by the Augustinian Recollects, the dam was originally designed to irrigate farmlands in Las 
+                Piñas and Bacoor and to regulate the flow of freshwater from the river to prevent saltwater intrusion from 
+                Manila Bay.
+            </p>
+            <p class="par">
+                Over time, urban development and silt accumulation have reduced the dam's effectiveness in managing water flow, 
+                contributing to flooding in nearby communities. Today, while Molino Dam stands as a heritage landmark, it also 
+                plays a critical role in local flood control and environmental management.
+            </p>
+        </div>
+        
+        <img class="picture" src="thumbnails/image.png">
+    </div>
+    <p class="developer">the project developers</p>
+   <div class="boxes">
+        <div class="picbox">
+            <img class="orly" src="thumbnails/alvarado.png">
+             <p class="name"> Orly M. Alvarado Jr.</p>
+            <p class="course">BS Computer Engineering</p>
+        </div>
+
+        <div class="picbox1">
+            <img class="orly" src="thumbnails/ben.jpg">
+            <p class="name"> Ben Andrei Leynes</p>
+            <p class="course">BS Computer Engineering</p>
+
+        </div>
+        <div class="picbox2">
+            <img class="orly" src="thumbnails/amiel.jpg">
+            <p class="name"> Rick Amiel Kasilag</p>
+            <p class="course">BS Computer Engineering</p>
+        </div>
+    </div>
+
+
+</body>
+</html>

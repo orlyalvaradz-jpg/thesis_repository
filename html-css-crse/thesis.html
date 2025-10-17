@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <style>
+     body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+     }
+
+     .bg-video {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;        
+        height: 100%;       
+        object-fit: cover;  
+        z-index: -1;       
+     }
+
+     .email {
+        text-align: center;
+        margin-top: 600px;
+     }
+
+     .search {
+        padding: 10px;
+        width: 350px;
+        height: 20px;
+        border-radius: 3px;
+        border: none;
+        opacity: .8;
+        font-size: 17px;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+     }
+
+     .lock {
+        text-align: center;
+        margin-top: 10px;
+     }
+
+     .password {
+        padding: 10px;
+        width: 350px;
+        height: 20px;
+        border-radius: 3px;
+        border: none;
+        opacity: .8;
+        font-size: 17px;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+     }
+
+     .login {
+        text-align: center;
+        margin-top: 15px;
+     }
+
+     .open {
+        padding: 10px;
+        width: 90px;
+        font-size: 17px;
+        border-radius: 10px;
+        border: none;
+     }
+
+     .open:hover {
+        opacity: .8;
+        background-color: #344a70;
+        color: white;
+     }
+
+     .forgot {
+        text-align: center;
+        margin-top: 15px;
+     }
+
+     a {
+        text-decoration: none;
+        color: white;
+     }
+
+     a:hover {
+        text-decoration: underline;
+     }
+   </style>
+</head>
+    
+<body>
+    <video class="bg-video" autoplay muted loop>
+        <source src="thumbnails/Safe Waters (1).mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <div class="email">
+        <input id="email" class="search" type="text" placeholder="Email/Username">
+    </div>
+
+    <div class="lock">
+        <input id="password" class="password" type="password" placeholder="Password">
+    </div>
+
+    <div class="login">
+        <button class="open" onclick="login()">Login</button>
+    </div>
+
+    <div class="forgot">
+        <a href="http://127.0.0.1:5500/youtube.html" target="_blank">Forgot Password?</a>
+    </div>
+
+    <script>
+        function login() {
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value.trim();
+
+            if (email === "floodmonitoring@gmail.com" && password === "admin1234") {
+                window.location.href = "http://127.0.0.1:5500/Dashboard.html";
+            } else {
+                alert("Invalid email or password. Please try again.");
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>Flood Monitoring Dashboard</title>
+   <style>
+     html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+        overflow-x: hidden;
+        overflow-y: auto;
+        font-family: Arial, sans-serif;
+     }
+
+     /* Background Video */
+     .bg_background {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transform: translate(-50%, -50%);
+        z-index: -1;
+        background-color: black;
+     }
+
+     /* Navigation Box */
+     .nav-box {
+        background-color: #34699a;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        padding: 15px 30px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between; /* space between left buttons and logout */
+        align-items: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+     }
+
+     /* Left group of buttons */
+     .left-buttons {
+        display: flex;
+        gap: 25px;
+        margin-left: 50px; /* balanced margin with logout */
+     }
+
+     /* Buttons */
+     .db, .alert, .about, .logout {
+        height: 40px;
+        width: 130px;
+        border-radius: 10px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s;
+        box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+     }
+
+     .db {
+        background-color: #58a0c8;
+        color: white;
+        border: 1px solid white;
+     }
+
+     .alert, .about, .logout {
+        background-color: white;
+        color: #34699a;
+        border: none;
+     }
+
+     .db:hover, .alert:hover, .about:hover, .logout:hover {
+        background-color: #2c5780;
+        color: white;
+     }
+
+     /* Logout button on the right */
+     .logout {
+        margin-right: 50px;
+     }
+
+     /* Sensor Box */
+     .sensor {
+        width: 280px;
+        background-color: rgba(238, 242, 243, 0.9);
+        border-radius: 10px;
+        padding: 15px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+     }
+
+     /* Weather Box */
+     .weather {
+        width: 300px;
+        background-color: rgba(238, 242, 243, 0.9);
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+     }
+
+     /* Flex container for boxes */
+     .box {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 30px;
+        margin-top: 40px;
+     }
+
+     /* Chart container */
+     .chart-container {
+        width: 70%;
+        max-width: 700px;
+        margin-top: 100px;
+        background-color: rgba(238, 242, 243, 0.9);
+        border-radius: 10px;
+        padding: 20px;
+        margin-left: 600px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+     }
+
+     .chart-container h3 {
+        text-align: center;
+        margin-bottom: 15px;
+        color: #333;
+     }
+
+     .risk-yes { color: red; font-weight: bold; }
+     .risk-no { color: green; font-weight: bold; }
+   </style>
+</head>
+    
+<body>
+    <!-- Background Video -->
+    <video class="bg_background" autoplay muted loop>
+        <source src="thumbnails/Das.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- Navigation Box -->
+    <div class="nav-box">
+        <div class="left-buttons">
+            <button class="db">DASHBOARD</button>    
+            <button class="alert">ALERT</button>
+            <button class="about">ABOUT US</button>
+        </div>
+        <button class="logout">LOG OUT</button>
+    </div>
+
+    <!-- Sensor and Weather Boxes -->
+    <div class="box">
+        <div class="sensor">
+            <table>
+                <tr><th>Node 1 Data</th></tr>
+                <tr><td>Distance: <span id="distance1">24 cm</span></td></tr>
+                <tr><td>Rain Sensor: <span id="rainVal1">Low</span></td></tr>
+                <tr><td>Predicted Dist: <span id="predicted1">22 cm</span></td></tr>
+                <tr><td>Overflow Risk: <span class="risk-no">No</span></td></tr>
+                <tr><td>Hours to Flood: <span id="hoursFlood1">--</span></td></tr>
+            </table>
+        </div>
+
+        <div class="sensor">
+            <table>
+                <tr><th>Node 2 Data</th></tr>
+                <tr><td>Distance: <span id="distance2">28 cm</span></td></tr>
+                <tr><td>Rain Sensor: <span id="rainVal2">Moderate</span></td></tr>
+                <tr><td>Predicted Dist: <span id="predicted2">26 cm</span></td></tr>
+                <tr><td>Overflow Risk: <span class="risk-no">No</span></td></tr>
+                <tr><td>Hours to Flood: <span id="hoursFlood2">--</span></td></tr>
+            </table>
+        </div>
+
+        <div class="sensor">
+            <table>
+                <tr><th>Node 3 Data</th></tr>
+                <tr><td>Distance: <span id="distance3">19 cm</span></td></tr>
+                <tr><td>Rain Sensor: <span id="rainVal3">High</span></td></tr>
+                <tr><td>Predicted Dist: <span id="predicted3">16 cm</span></td></tr>
+                <tr><td>Overflow Risk: <span class="risk-yes">Yes</span></td></tr>
+                <tr><td>Hours to Flood: <span id="hoursFlood3">2 hrs</span></td></tr>
+            </table>
+        </div>
+
+        <div class="sensor">
+            <table>
+                <tr><th>Node 4 Data</th></tr>
+                <tr><td>Distance: <span id="distance4">21 cm</span></td></tr>
+                <tr><td>Rain Sensor: <span id="rainVal4">Low</span></td></tr>
+                <tr><td>Predicted Dist: <span id="predicted4">20 cm</span></td></tr>
+                <tr><td>Overflow Risk: <span class="risk-no">No</span></td></tr>
+                <tr><td>Hours to Flood: <span id="hoursFlood4">--</span></td></tr>
+            </table>
+        </div>
+
+        <div class="weather">
+            <table>
+                <tr><th>Weather Forecast</th></tr>
+                <tr><td>Total Rain: <span id="rainTotal">7 mm</span></td></tr>
+                <tr><td>Max Rain Rate: <span id="rainRate">3 mm/hr</span></td></tr>
+                <tr><td>Summary: <span id="weatherDesc">Light Showers</span></td></tr>                
+            </table>
+        </div>
+    </div>
+
+    <div class="chart-container">
+        <h3>Water Level Trend</h3>
+        <canvas id="waterLevelChart" height="120"></canvas>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      // Chart initialization
+      const ctx = document.getElementById('waterLevelChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['8 AM', '10 AM', '12 PM', '2 PM', '4 PM', '6 PM'],
+          datasets: [
+            { label: 'Node 1', data: [10, 20, 25, 30, 35, 40], borderColor: '#34699a', backgroundColor: 'rgba(52, 105, 154, 0.3)', fill: true, tension: 0.3 },
+            { label: 'Node 2', data: [15, 18, 22, 26, 29, 33], borderColor: '#ff5733', backgroundColor: 'rgba(255, 87, 51, 0.3)', fill: true, tension: 0.3 },
+            { label: 'Node 3', data: [8, 14, 20, 25, 30, 34], borderColor: '#28a745', backgroundColor: 'rgba(40, 167, 69, 0.3)', fill: true, tension: 0.3 },
+            { label: 'Node 4', data: [12, 17, 21, 24, 28, 31], borderColor: '#ffc107', backgroundColor: 'rgba(255, 193, 7, 0.3)', fill: true, tension: 0.3 }
+          ]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: { beginAtZero: true, title: { display: true, text: 'Water Level (cm)' } },
+            x: { title: { display: true, text: 'Time of Day' } }
+          },
+          plugins: { legend: { display: true, position: 'top' } }
+        }
+      });
+
+      // ✅ Logout Function
+      document.querySelector('.logout').addEventListener('click', function() {
+        const confirmLogout = confirm("Are you sure you want to log out?");
+        if (confirmLogout) {
+          window.location.href = "http://127.0.0.1:5500/thesis.html";
+        }
+      });
+    </script>
+</body>
+</html>
